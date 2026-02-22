@@ -1,0 +1,11 @@
+:host {
+  display: block;
+  height: 100%;
+  overflow: hidden;
+}
+
+.app-outlet {
+  height: 100%;
+  overflow: hidden;
+  display: block;
+}

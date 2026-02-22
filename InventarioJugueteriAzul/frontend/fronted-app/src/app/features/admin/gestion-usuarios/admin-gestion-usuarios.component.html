@@ -1,0 +1,145 @@
+<div class="gestion-usuarios">
+  <div class="titulo-row">
+    <h1 class="titulo">👥 Gestión de Empleados</h1>
+    <a routerLink="/admin/gestion-usuarios/creacion-empleado" class="btn-agregar">+ Agregar empleado</a>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <h3>TOTAL EMPLEADOS</h3>
+      <p class="stat-value">{{ resumen()?.total ?? '—' }}</p>
+    </div>
+    <div class="stat-card stat-activos">
+      <h3>ACTIVOS</h3>
+      <p class="stat-value">{{ resumen()?.activos ?? '—' }}</p>
+    </div>
+    <div class="stat-card stat-ventas">
+      <h3>VENTAS HOY</h3>
+      <p class="stat-value">{{ resumen()?.ventas_hoy ?? '—' }}</p>
+    </div>
+    <div class="stat-card stat-jefes">
+      <h3>JEFES</h3>
+      <p class="stat-value">{{ resumen()?.jefes ?? '—' }}</p>
+    </div>
+  </div>
+
+  <div class="filters-section">
+    <div class="filter-row">
+      <input
+        type="text"
+        class="search-input"
+        [ngModel]="searchText()"
+        (ngModelChange)="searchText.set($event)"
+        placeholder="Buscar por nombre, username o teléfono..."
+        (keyup.enter)="buscar()"
+      />
+      <button type="button" class="btn-filtro" (click)="buscar()">Buscar</button>
+      <select [ngModel]="rolFiltro()" (ngModelChange)="rolFiltro.set($event); buscar()">
+        <option value="">Todos los roles</option>
+        <option value="empleado">Empleado</option>
+        <option value="jefe">Jefe</option>
+      </select>
+      <select [ngModel]="estadoFiltro()" (ngModelChange)="estadoFiltro.set($event); buscar()">
+        <option value="">Todos los estados</option>
+        <option value="activo">Activos</option>
+        <option value="inactivo">Inactivos</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    @if (loading()) {
+      <p class="loading">Cargando empleados…</p>
+    } @else {
+      <table class="empleados-table">
+        <thead>
+          <tr>
+            <th>EMPLEADO</th>
+            <th>TELÉFONO</th>
+            <th>ROL</th>
+            <th>ESTADO</th>
+            <th>VENTAS</th>
+            <th>ACCIONES</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (e of empleados(); track e.id) {
+            <tr>
+              <td>
+                <div class="empleado-cell">
+                  @if (fotoUrl(e)) {
+                    <img [src]="fotoUrl(e)!" alt="{{ e.nombre }}" class="avatar avatar-foto" />
+                  } @else {
+                    <span class="avatar" [attr.aria-label]="e.nombre">{{ iniciales(e.nombre, e.apellido) }}</span>
+                  }
+                  <div>
+                    <strong>{{ e.nombre }} {{ e.apellido }}</strong>
+                    <span class="username">{{ e.username }}</span>
+                  </div>
+                </div>
+              </td>
+              <td>{{ e.telefono ?? '—' }}</td>
+              <td>
+                <span class="badge badge-rol">{{ e.nombre_rol }}</span>
+              </td>
+              <td>
+                <span class="badge badge-activo" [class.inactivo]="!e.activo">
+                  {{ e.activo ? '✓ Activo' : 'Inactivo' }}
+                </span>
+              </td>
+              <td>{{ ventasTexto(e) }}</td>
+              <td>
+                <div class="acciones-cell">
+                  <button type="button" class="btn-accion btn-editar" (click)="editar(e)">Editar</button>
+                  <button type="button" class="btn-accion btn-reset" (click)="abrirResetear(e)">Resetear</button>
+                  @if (e.activo) {
+                    <button type="button" class="btn-accion btn-desactivar" (click)="desactivar(e)">
+                      X Desactivar
+                    </button>
+                  }
+                  <button type="button" class="btn-accion btn-eliminar" (click)="eliminar(e)">
+                    Eliminar
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+          @empty {
+            <tr>
+              <td colspan="6">No hay empleados</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  </div>
+</div>
+
+@if (empleadoResetear()) {
+  <div class="modal-overlay" (click)="cerrarResetear()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>Resetear contraseña - {{ empleadoResetear()!.nombre }} {{ empleadoResetear()!.apellido }}</h2>
+        <button type="button" class="btn-cerrar" (click)="cerrarResetear()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="field">
+          <label>Contraseña temporal</label>
+          <input
+            type="password"
+            [ngModel]="resetPassword()"
+            (ngModelChange)="resetPassword.set($event)"
+            placeholder="Mínimo 6 caracteres"
+          />
+        </div>
+        @if (resetError()) {
+          <p class="error-msg">{{ resetError() }}</p>
+        }
+        <div class="modal-actions">
+          <button type="button" class="btn-cancelar" (click)="cerrarResetear()">Cancelar</button>
+          <button type="button" class="btn-confirmar" (click)="ejecutarResetear()">Resetear</button>
+        </div>
+      </div>
+    </div>
+  </div>
+}

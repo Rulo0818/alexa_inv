@@ -1,0 +1,151 @@
+<div class="form-panel">
+  <header class="panel-header">
+    <h1>Editar Producto</h1>
+    <a routerLink="/admin/inventario" class="btn-close" aria-label="Cerrar">✕</a>
+  </header>
+
+  @if (loadingData()) {
+    <div class="form-body"><p class="loading">Cargando producto…</p></div>
+  } @else if (notFound()) {
+    <div class="form-body">
+      <p class="msg error">{{ mensaje()?.text }}</p>
+      <a routerLink="/admin/inventario" class="btn-back">Volver al inventario</a>
+    </div>
+  } @else {
+    <form class="form-body" (ngSubmit)="guardar()">
+      <div class="form-row">
+        <div class="field">
+          <label>CÓDIGO</label>
+          <input type="text" [value]="codigo()" readonly disabled />
+        </div>
+        <div class="field flex-grow">
+          <label>NOMBRE DEL PRODUCTO</label>
+          <input
+            type="text"
+            [ngModel]="nombre()"
+            (ngModelChange)="nombre.set($event)"
+            name="nombre"
+            placeholder="Ej: Muñeca Barbie Original"
+          />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="field">
+          <label>CATEGORÍA</label>
+          <select
+            [ngModel]="idCategoria()"
+            (ngModelChange)="idCategoria.set($event)"
+            name="categoria"
+          >
+            <option [ngValue]="null">Seleccionar categoría</option>
+            @for (c of categorias(); track c.id) {
+              <option [ngValue]="c.id">{{ c.emoji || '•' }} {{ c.nombre }}</option>
+            }
+          </select>
+          <span class="hint"><a routerLink="/admin/inventario/categorias">⚙️ Categorías</a></span>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="field">
+          <label>PRECIO DE COMPRA</label>
+          <div class="input-prefix">
+            <span class="prefix">$</span>
+            <input
+              type="number"
+              min="0"
+              step="0.01"
+              [ngModel]="precioCompra()"
+              (ngModelChange)="precioCompra.set(+$event || 0)"
+              name="precioCompra"
+            />
+          </div>
+        </div>
+        <div class="field">
+          <label>PRECIO DE VENTA</label>
+          <div class="input-prefix">
+            <span class="prefix">$</span>
+            <input
+              type="number"
+              min="0"
+              step="0.01"
+              [ngModel]="precioVenta()"
+              (ngModelChange)="precioVenta.set(+$event || 0)"
+              name="precioVenta"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="field">
+          <div class="margen-box">
+            <span>💰 Margen: {{ formatMoney(margen().monto) }} ({{ margen().porcentaje | number:'1.1-1' }}%)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="field">
+          <label>STOCK</label>
+          <input
+            type="number"
+            min="0"
+            [ngModel]="stock()"
+            (ngModelChange)="onStockChange($event)"
+            name="stock"
+          />
+        </div>
+        <div class="field">
+          <label>STOCK MÍNIMO</label>
+          <input
+            type="number"
+            min="0"
+            [ngModel]="stockMinimo()"
+            (ngModelChange)="stockMinimo.set(+$event || 0)"
+            name="stockMinimo"
+          />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="field">
+          <label>ESTADO</label>
+          <div class="radio-group">
+            <label class="radio-option">
+              <input type="radio" [ngModel]="estado()" (ngModelChange)="estado.set('bueno')" name="estado" value="bueno" />
+              ✓ Bueno
+            </label>
+            <label class="radio-option">
+              <input type="radio" [ngModel]="estado()" (ngModelChange)="estado.set('malo')" name="estado" value="malo" />
+              ✗ Malo
+            </label>
+          </div>
+        </div>
+        <div class="field">
+          <label>REBAJA %</label>
+          <input
+            type="number"
+            min="0"
+            max="100"
+            [ngModel]="descuento()"
+            (ngModelChange)="descuento.set(+$event || 0)"
+            name="descuento"
+          />
+        </div>
+      </div>
+
+      @if (mensaje()) {
+        <p class="msg" [class.error]="mensaje()?.tipo === 'error'">{{ mensaje()?.text }}</p>
+      }
+
+      <div class="form-actions">
+        <a routerLink="/admin/inventario" class="btn-cancel">Cancelar</a>
+        <button type="submit" class="btn-save" [disabled]="guardando()">
+          {{ guardando() ? 'Guardando…' : 'Guardar cambios' }}
+        </button>
+      </div>
+    </form>
+  }
+</div>

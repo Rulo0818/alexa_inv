@@ -1,0 +1,206 @@
+.categorias-panel {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  background: #b8d4e8;
+  color: #1e3a5f;
+}
+
+.panel-header h1 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.btn-close {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border-radius: 50%;
+  color: #1e3a5f;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.btn-close:hover {
+  background: #e8f4fc;
+}
+
+.form-card {
+  padding: 1.5rem;
+}
+
+.form-row {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.field label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+}
+
+.emoji-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.emoji-btn {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.emoji-btn:hover {
+  border-color: #b8d4e8;
+}
+
+.emoji-btn.selected {
+  border-color: #1e3a5f;
+  background: #e8f4fc;
+}
+
+.emoji-preview {
+  width: 3rem;
+  height: 3rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  background: #f9fafb;
+}
+
+.flex-grow { flex: 1; min-width: 200px; }
+
+.input-row {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.input-row input {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.btn-add {
+  padding: 0.5rem 1.25rem;
+  background: #059669;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-add:hover:not(:disabled) {
+  background: #047857;
+}
+
+.btn-add:disabled { opacity: 0.7; cursor: not-allowed; }
+
+.btn-cancel {
+  margin-top: 0.5rem;
+  background: none;
+  border: none;
+  color: #6b7280;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.btn-cancel:hover { color: #374151; }
+
+.msg { margin: 1rem 1.5rem 0; font-size: 0.9rem; }
+.msg.error { color: #dc2626; }
+
+.lista {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.loading, .empty {
+  padding: 1.5rem;
+  text-align: center;
+  color: #6b7280;
+}
+
+.categoria-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.categoria-row:last-child { border-bottom: none; }
+
+.cat-emoji {
+  font-size: 1.5rem;
+  width: 2.5rem;
+  text-align: center;
+}
+
+.cat-nombre {
+  flex: 1;
+  font-weight: 600;
+  color: #333;
+}
+
+.cat-acciones {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-editar {
+  padding: 0.35rem 0.75rem;
+  background: #dbeafe;
+  color: #1d4ed8;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.btn-editar:hover { background: #bfdbfe; }
+
+.btn-eliminar {
+  padding: 0.35rem 0.75rem;
+  background: #fee2e2;
+  color: #dc2626;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.btn-eliminar:hover { background: #fecaca; }

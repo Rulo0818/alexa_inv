@@ -1,0 +1,14 @@
+/* Estilos globales - evita scroll en toda la página */
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+/* El contenedor raíz debe ocupar toda la altura */
+app-root {
+  display: block;
+  height: 100%;
+  overflow: hidden;
+}

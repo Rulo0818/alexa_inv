@@ -1,0 +1,40 @@
+<div class="admin-layout">
+  <header class="header">
+    <div class="brand">
+      <span class="logo-icon">🧸</span>
+      <span>Inventario Juguetería Azul</span>
+    </div>
+    <div class="user-info">
+      <span class="user-label">Usuario: {{ usuario()?.nombre ?? usuario()?.username ?? 'Admin' }}</span>
+      @if (fotoUsuario()) {
+        <img [src]="fotoUsuario()" alt="{{ usuario()?.nombre }}" class="avatar avatar-foto" />
+      } @else {
+        <span class="avatar" [attr.aria-label]="usuario()?.nombre">{{ iniciales() }}</span>
+      }
+    </div>
+  </header>
+
+  <div class="body-wrapper">
+  <aside class="sidebar">
+    <h2 class="menu-title">Menú</h2>
+    <nav class="nav">
+      <a routerLink="/admin" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="nav-link">Panel principal</a>
+      <a routerLink="/admin/ventas" routerLinkActive="active" class="nav-link">Nueva venta</a>
+      <a routerLink="/admin/inventario" routerLinkActive="active" class="nav-link">Inventario</a>
+      <a routerLink="/admin/historial-ventas" class="nav-link">Historial de ventas</a>
+      <a routerLink="/admin/historial-acciones" routerLinkActive="active" class="nav-link">Historial de acciones</a>
+      <a routerLink="/admin/gestion-usuarios" routerLinkActive="active" class="nav-link">Gestión de empleados</a>
+    </nav>
+    <button type="button" class="btn-logout" (click)="logout()">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="20" height="20" fill="currentColor" style="vertical-align: middle;">
+        <path d="M160 80c0-8.8 7.2-16 16-16h96c8.8 0 16 7.2 16 16v48h48V80c0-35.3-28.7-64-64-64h-96c-35.3 0-64 28.7-64 64v352c0 35.3 28.7 64 64 64h96c35.3 0 64-28.7 64-64v-48h-48v48c0 8.8-7.2 16-16 16h-96c-8.8 0-16-7.2-16-16V80zM377 273l-72 72c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l39-39H192c-13.3 0-24-10.7-24-24s10.7-24 24-24h118.1l-39-39c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l72 72c9.4 9.4 9.4 24.6 0 33.9z"/>
+      </svg>
+      Cerrar sesión
+    </button>
+  </aside>
+
+  <main class="main">
+    <router-outlet />
+  </main>
+  </div>
+</div>

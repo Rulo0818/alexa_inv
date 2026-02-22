@@ -1,0 +1,73 @@
+<div class="categorias-panel">
+  <header class="panel-header">
+    <h1>⚙️ Gestión de Categorías</h1>
+    <a routerLink="/admin/inventario" class="btn-close" aria-label="Cerrar">✕</a>
+  </header>
+
+  <div class="form-card">
+    <div class="form-row">
+      <div class="field">
+        <label>EMOJI</label>
+        <div class="emoji-grid">
+          @for (e of emojis; track e) {
+            <button
+              type="button"
+              class="emoji-btn"
+              [class.selected]="emojiSeleccionado() === e"
+              (click)="seleccionarEmoji(e)"
+            >
+              {{ e }}
+            </button>
+          }
+        </div>
+        <div class="emoji-preview">{{ emojiSeleccionado() }}</div>
+      </div>
+      <div class="field flex-grow">
+        <label>NOMBRE DE CATEGORÍA</label>
+        <div class="input-row">
+          <input
+            type="text"
+            [ngModel]="nombreCategoria()"
+            (ngModelChange)="nombreCategoria.set($event)"
+            placeholder="Ej: Muñecas"
+          />
+          <button
+            type="button"
+            class="btn-add"
+            [disabled]="guardando()"
+            (click)="agregar()"
+          >
+            + Agregar
+          </button>
+        </div>
+        @if (editandoId()) {
+          <button type="button" class="btn-cancel" (click)="cancelarEdicion()">Cancelar edición</button>
+        }
+      </div>
+    </div>
+  </div>
+
+  @if (mensaje()) {
+    <p class="msg" [class.error]="mensaje()?.tipo === 'error'">{{ mensaje()?.text }}</p>
+  }
+
+  <div class="lista">
+    @if (loading()) {
+      <p class="loading">Cargando categorías…</p>
+    } @else {
+      @for (c of categorias(); track c.id) {
+        <div class="categoria-row">
+          <span class="cat-emoji">{{ c.emoji || '📦' }}</span>
+          <span class="cat-nombre">{{ c.nombre }}</span>
+          <div class="cat-acciones">
+            <button type="button" class="btn-editar" (click)="editar(c)">✏️ Editar</button>
+            <button type="button" class="btn-eliminar" (click)="eliminar(c)">🗑️ Eliminar</button>
+          </div>
+        </div>
+      }
+      @empty {
+        <p class="empty">No hay categorías. Agrega una arriba.</p>
+      }
+    }
+  </div>
+</div>

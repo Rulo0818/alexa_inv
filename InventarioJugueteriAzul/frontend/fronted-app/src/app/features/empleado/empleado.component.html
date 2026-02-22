@@ -1,0 +1,175 @@
+<div class="empleado-layout">
+  <header class="header">
+    <div class="brand">
+      <span class="logo-icon">🧸</span>
+      <span>Inventario Juguetería Azul</span>
+    </div>
+    <div class="user-info">
+      <span class="user-label">Usuario: {{ usuario()?.nombre }} {{ usuario()?.apellido }}</span>
+      @if (fotoUsuario()) {
+        <img [src]="fotoUsuario()" alt="{{ usuario()?.nombre }}" class="avatar avatar-foto" />
+      } @else {
+        <span class="avatar" [attr.aria-label]="usuario()?.nombre">{{ iniciales() }}</span>
+      }
+    </div>
+  </header>
+
+  <div class="body-wrapper">
+  <aside class="sidebar">
+    <h2 class="menu-title">Menú</h2>
+    <nav class="nav">
+      <a routerLink="/empleado" class="nav-link active">Nueva venta</a>
+    </nav>
+    <button type="button" class="btn-logout" (click)="logout()">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="20" height="20" fill="currentColor" style="vertical-align: middle;">
+        <path d="M160 80c0-8.8 7.2-16 16-16h96c8.8 0 16 7.2 16 16v48h48V80c0-35.3-28.7-64-64-64h-96c-35.3 0-64 28.7-64 64v352c0 35.3 28.7 64 64 64h96c35.3 0 64-28.7 64-64v-48h-48v48c0 8.8-7.2 16-16 16h-96c-8.8 0-16-7.2-16-16V80zM377 273l-72 72c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l39-39H192c-13.3 0-24-10.7-24-24s10.7-24 24-24h118.1l-39-39c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l72 72c9.4 9.4 9.4 24.6 0 33.9z"/>
+      </svg>
+      Cerrar sesión
+    </button>
+  </aside>
+
+  <main class="main">
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <h3>MIS VENTAS HOY</h3>
+        <p class="stat-value">{{ loadingStats() ? '—' : ventasHoy() }}</p>
+      </div>
+      <div class="stat-card">
+        <h3>CUÁNTO LLEVA VENDIDO</h3>
+        <p class="stat-value">{{ loadingStats() ? '—' : formatMoney(totalVendidoHistorico()) }}</p>
+      </div>
+      <div class="stat-card">
+        <h3>ÚLTIMA VENTA</h3>
+        <p class="stat-value">{{ ultimaVenta() ?? '—' }}</p>
+      </div>
+    </div>
+
+    <!-- Nueva Venta -->
+    <section class="section nueva-venta">
+      <h2>🛒 Nueva Venta</h2>
+      <p class="section-desc">Busca productos por nombre, código o categoría</p>
+
+      <div class="category-pills">
+        <button
+          type="button"
+          class="pill"
+          [class.active]="categoriaSeleccionada() === null"
+          (click)="seleccionarCategoria(null)"
+        >
+          Todos
+        </button>
+        @for (c of categorias(); track c.id) {
+          <button
+            type="button"
+            class="pill"
+            [class.active]="categoriaSeleccionada() === c.id"
+            (click)="seleccionarCategoria(c.id)"
+          >
+            {{ c.emoji || '•' }} {{ c.nombre }}
+          </button>
+        }
+      </div>
+
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input
+          type="text"
+          [value]="searchText()"
+          (input)="onSearchChange($any($event.target).value)"
+          placeholder="Buscar por nombre (ej: barbie) o código (ej: J012)..."
+        />
+      </div>
+      <p class="hint">Escribe en el buscador o selecciona una categoría para ver productos</p>
+
+      @if (!loadingProductos() && productos().length > 0) {
+      <div class="productos-grid">
+        @for (p of productos(); track p.id) {
+          <button
+            type="button"
+            class="producto-card"
+            [disabled]="p.stock < 1"
+            (click)="agregarAlCarrito(p)"
+          >
+            <span class="prod-emoji">{{ p.emoji_categoria || '📦' }}</span>
+            <span class="prod-nombre">{{ p.nombre }}</span>
+            <span class="prod-precio">{{ formatMoney(p.precio_de_venta) }}</span>
+            <span class="prod-stock" *ngIf="p.stock < 1">Sin stock</span>
+          </button>
+        }
+      </div>
+      }
+      @if (!loadingProductos() && productos().length === 0) {
+        <p class="empty-hint">No hay productos para mostrar</p>
+      }
+    </section>
+
+    <!-- Carrito -->
+    <section class="section carrito">
+      <h2>🛒 Carrito de venta</h2>
+      @if (carrito().length === 0) {
+        <p class="cart-empty">El carrito está vacío. Agrega productos para comenzar.</p>
+      } @else {
+        <ul class="cart-list">
+          @for (item of carrito(); track item.id_producto) {
+            <li class="cart-item">
+              <span class="cart-item-name">{{ item.nombre }}</span>
+              <span class="cart-item-qty">
+                <button type="button" (click)="ajustarCantidad(item.id_producto, -1)">−</button>
+                {{ item.cantidad }}
+                <button type="button" (click)="ajustarCantidad(item.id_producto, 1)">+</button>
+              </span>
+              <span class="cart-item-price">{{ formatMoney(item.subtotal) }}</span>
+              <button type="button" class="btn-remove" (click)="quitarDelCarrito(item.id_producto)">✕</button>
+            </li>
+          }
+        </ul>
+      }
+    </section>
+
+    <!-- Método de pago -->
+    <section class="section pago">
+      <h2>💳 Método de pago</h2>
+      <div class="payment-buttons">
+        <button
+          type="button"
+          class="payment-btn"
+          [class.active]="metodoPago() === 'efectivo'"
+          (click)="metodoPago.set('efectivo')"
+        >
+          <span class="payment-icon">💵</span>
+          Efectivo
+        </button>
+        <button
+          type="button"
+          class="payment-btn"
+          [class.active]="metodoPago() === 'transferencia'"
+          (click)="metodoPago.set('transferencia')"
+        >
+          <span class="payment-icon">🏦</span>
+          Transferencia
+        </button>
+      </div>
+    </section>
+
+    <!-- Total y finalizar -->
+    <div class="totales">
+      <p>Subtotal: {{ formatMoney(subtotal()) }}</p>
+      <div class="total-bar">
+        <span>TOTAL: {{ formatMoney(subtotal()) }}</span>
+      </div>
+      @if (mensaje()) {
+        <p class="msg" [class.error]="mensaje()?.tipo === 'error'">{{ mensaje()?.text }}</p>
+      }
+      <button
+        type="button"
+        class="btn-finalizar"
+        [disabled]="carrito().length === 0 || finalizando()"
+        (click)="finalizarVenta()"
+      >
+        ✓ Finalizar Venta
+      </button>
+    </div>
+  </main>
+  </div>
+</div>

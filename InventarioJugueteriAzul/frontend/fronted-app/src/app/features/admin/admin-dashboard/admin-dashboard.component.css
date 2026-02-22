@@ -1,0 +1,324 @@
+/* ============================================================
+   FUENTE
+   ============================================================ */
+   @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+   /* ============================================================
+      TOKENS — extraídos directamente de la imagen
+      ============================================================ */
+   :host {
+     /* Azules del sistema */
+     --blue-title:    #1a3a6b;       /* título "Contenido principal" */
+     --blue-accent:   #0db8d9;       /* celeste encabezado tabla, chips */
+     --blue-bright:   #38bdf8;       /* borde top card 1, valor card 1 */
+     --blue-mid:      #60a5fa;       /* borde top card 2, valor card 2 */
+     --blue-light:    #e0f7fc;       /* fondo ícono card */
+     --blue-link:     #0ea5c9;       /* nombres en tabla (celeste oscuro) */
+   
+     /* Verdes */
+     --green-top:     #84cc16;       /* borde top card 3 (verde lima) */
+     --green-value:   #65a30d;       /* valor card 3 (verde oscuro) */
+     --green-badge:   #4ade80;       /* círculo cantidad vendida */
+     --green-badge-bg:#22c55e;       /* sombra del badge */
+     --green-icon:    #d1fae5;       /* fondo ícono card 3 */
+   
+     /* Neutros */
+     --white:         #ffffff;
+     --bg-page:       #f8fafc;       /* fondo general de la página */
+     --text-primary:  #1e293b;
+     --text-secondary:#64748b;
+     --text-muted:    #94a3b8;
+     --border-light:  #e2e8f0;
+   
+     /* Sombras */
+     --shadow-card:   0 1px 8px rgba(0, 0, 0, 0.07),
+                      0 4px 16px rgba(0, 0, 0, 0.04);
+   
+     /* Radios */
+     --radius-card:   16px;
+     --radius-sm:     8px;
+     --transition:    0.15s ease;
+   
+     font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+     -webkit-font-smoothing: antialiased;
+   }
+   
+   /* ============================================================
+      TÍTULO
+      ============================================================ */
+   .main-title {
+     font-size: 1.75rem;
+     font-weight: 800;
+     color: var(--blue-title);
+     margin: 0 0 1.5rem;
+     letter-spacing: -0.025em;
+     line-height: 1.15;
+   }
+   
+   .loading {
+     color: var(--text-muted);
+     font-size: 0.95rem;
+     padding: 2rem 0;
+     text-align: center;
+   }
+   
+   .error-msg {
+     color: #dc2626;
+     font-size: 0.925rem;
+     background: #fff0f0;
+     border: 1px solid #fecaca;
+     border-radius: var(--radius-sm);
+     padding: 0.75rem 1rem;
+     margin-bottom: 1rem;
+   }
+   
+   /* ============================================================
+      CARDS DE MÉTRICAS
+      — fondo blanco, borde SUPERIOR de color, ícono top-right
+      ============================================================ */
+   .cards {
+     display: grid;
+     grid-template-columns: repeat(3, 1fr);
+     gap: 1.1rem;
+     margin-bottom: 1.75rem;
+   }
+   
+   .card {
+     background: var(--white);
+     border-radius: var(--radius-card);
+     padding: 1.4rem 1.5rem 1.35rem;
+     box-shadow: var(--shadow-card);
+     border: 1px solid var(--border-light);
+     border-top: 4px solid var(--blue-bright);   /* card 1 — celeste */
+     position: relative;
+     overflow: hidden;
+     transition: transform var(--transition), box-shadow var(--transition);
+   }
+   
+   .card:hover {
+     transform: translateY(-2px);
+     box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+   }
+   
+   /* Card 2 — azul medio */
+   .card:nth-child(2) {
+     border-top-color: var(--blue-mid);
+   }
+   .card:nth-child(2) .card-value {
+     color: var(--blue-mid);
+   }
+   .card:nth-child(2) .card-icon {
+     background: #eff6ff;
+     color: var(--blue-mid);
+   }
+   
+   /* Card 3 — verde lima */
+   .card:nth-child(3) {
+     border-top-color: var(--green-top);
+   }
+   .card:nth-child(3) .card-value {
+     color: var(--green-value);
+   }
+   .card:nth-child(3) .card-icon {
+     background: var(--green-icon);
+     color: var(--green-top);
+   }
+   
+   /* Ícono decorativo — cuadrado redondeado top-right */
+   .card-icon {
+     position: absolute;
+     top: 1rem;
+     right: 1.1rem;
+     width: 2.5rem;
+     height: 2.5rem;
+     background: var(--blue-light);
+     border-radius: var(--radius-sm);
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     font-size: 1.1rem;
+     color: var(--blue-accent);
+     opacity: 0.85;
+   }
+   
+   .card h3 {
+     font-size: 0.68rem;
+     font-weight: 700;
+     letter-spacing: 0.09em;
+     color: var(--text-secondary);
+     text-transform: uppercase;
+     margin: 0 0 0.6rem;
+     padding-right: 3rem;  /* espacio para el ícono */
+   }
+   
+   .card-value {
+     font-size: 2.2rem;
+     font-weight: 800;
+     color: var(--blue-bright);
+     margin: 0 0 0.4rem;
+     font-family: 'Courier Prime', 'Courier New', monospace;
+     letter-spacing: -0.02em;
+     line-height: 1;
+   }
+   
+   .card-desc {
+     font-size: 0.8rem;
+     color: var(--text-muted);
+     margin: 0;
+     font-weight: 400;
+   }
+   
+   /* ============================================================
+      SECCIÓN TABLAS
+      ============================================================ */
+   .tables {
+     display: grid;
+     grid-template-columns: 1fr 1fr;
+     gap: 1.1rem;
+   }
+   
+   .table-section {
+     background: var(--white);
+     border-radius: var(--radius-card);
+     padding: 1.5rem 1.5rem 1.25rem;
+     box-shadow: var(--shadow-card);
+     border: 1px solid var(--border-light);
+   }
+   
+   .table-section h3 {
+     font-size: 1.05rem;
+     font-weight: 700;
+     color: var(--blue-title);
+     margin: 0 0 1.1rem;
+     display: flex;
+     align-items: center;
+     gap: 0.55rem;
+     letter-spacing: -0.01em;
+   }
+   
+   /* Ícono de sección — cuadrado celeste redondeado */
+   .table-section-icon {
+     width: 2.1rem;
+     height: 2.1rem;
+     background: var(--blue-light);
+     border-radius: 7px;
+     display: inline-flex;
+     align-items: center;
+     justify-content: center;
+     font-size: 1rem;
+     flex-shrink: 0;
+   }
+   
+   /* ============================================================
+      TABLAS
+      — thead celeste sólido, primera col celeste, resto oscuro
+      ============================================================ */
+   .data-table {
+     width: 100%;
+     border-collapse: collapse;
+     font-size: 0.875rem;
+   }
+   
+   /* THEAD — celeste sólido (sin gradiente, como en la imagen) */
+   .data-table thead tr {
+     background: var(--blue-accent);
+   }
+   
+   .data-table thead th {
+     color: var(--white);
+     font-weight: 700;
+     font-size: 0.7rem;
+     letter-spacing: 0.07em;
+     text-transform: uppercase;
+     padding: 0.7rem 1rem;
+     text-align: left;
+     white-space: nowrap;
+   }
+   
+   .data-table thead th:first-child {
+     border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+   }
+   .data-table thead th:last-child {
+     border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+   }
+   
+   /* TBODY */
+   .data-table tbody tr {
+     border-bottom: 1px solid var(--border-light);
+     transition: background var(--transition);
+   }
+   .data-table tbody tr:last-child {
+     border-bottom: none;
+   }
+   .data-table tbody tr:hover {
+     background: #f0f9ff;
+   }
+   
+   /* Primera columna — celeste (nombre producto/empleado) */
+   .data-table tbody td {
+     padding: 0.85rem 1rem;
+     color: var(--blue-link);
+     font-weight: 600;
+     vertical-align: middle;
+   }
+   
+   /* Resto de columnas — texto oscuro */
+   .data-table tbody td:not(:first-child) {
+     color: var(--text-primary);
+     font-weight: 500;
+   }
+   
+   /* ============================================================
+      BADGE — círculo verde (cantidad vendida)
+      ============================================================ */
+   .badge {
+     display: inline-flex;
+     align-items: center;
+     justify-content: center;
+     background: var(--green-badge);
+     color: var(--white);
+     font-weight: 800;
+     font-size: 0.82rem;
+     border-radius: 50%;
+     width: 2rem;
+     height: 2rem;
+     line-height: 1;
+     box-shadow: 0 2px 8px rgba(74, 222, 128, 0.5);
+     flex-shrink: 0;
+   }
+   
+   /* ============================================================
+      CHIP — píldora celeste (total vendido)
+      ============================================================ */
+   .chip {
+     display: inline-block;
+     background: var(--blue-accent);
+     color: var(--white);
+     font-weight: 700;
+     font-size: 0.82rem;
+     border-radius: 20px;
+     padding: 0.22rem 0.85rem;
+     white-space: nowrap;
+     box-shadow: 0 2px 6px rgba(13, 184, 217, 0.4);
+   }
+   
+   /* ============================================================
+      RESPONSIVE
+      ============================================================ */
+   @media (max-width: 960px) {
+     .cards {
+       grid-template-columns: 1fr 1fr;
+     }
+   }
+   
+   @media (max-width: 700px) {
+     .cards {
+       grid-template-columns: 1fr;
+     }
+     .tables {
+       grid-template-columns: 1fr;
+     }
+     .main-title {
+       font-size: 1.5rem;
+     }
+   }
