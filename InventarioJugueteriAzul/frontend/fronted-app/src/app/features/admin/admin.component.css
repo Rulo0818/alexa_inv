@@ -80,15 +80,16 @@
      overflow: hidden;
    }
    
-   /* SIDEBAR (Azul oscuro) */
-   .sidebar {
-     width: 240px;
-     background: #005691; /* Azul profundo del sidebar */
-     color: #fff;
-     display: flex;
-     flex-direction: column;
-     padding: 1.5rem 0;
-   }
+/* SIDEBAR (Azul oscuro) */
+.sidebar {
+  width: 240px;
+  background: #005691; /* Azul profundo del sidebar */
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 0;
+  transition: transform 0.3s ease;
+}
    
    .menu-title {
      padding: 0 1.5rem;
@@ -152,12 +153,65 @@
      background: #e53935; /* Rojo al pasar el cursor para feedback */
    }
    
-   /* ============================================================
-      ÁREA PRINCIPAL (Gris muy claro)
-      ============================================================ */
-   .main {
-     flex: 1;
-     background: #f8fafc; /* Color de fondo general */
-     padding: 2rem;
-     overflow-y: auto;
-   }
+/* ============================================================
+   ÁREA PRINCIPAL (Gris muy claro)
+   ============================================================ */
+.main {
+  flex: 1;
+  background: #f8fafc; /* Color de fondo general */
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+/* El botón hamburguesa solo se muestra en móvil */
+.menu-icon {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: white;
+}
+
+.sidebar-backdrop {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .menu-icon {
+    display: block;
+  }
+
+  .body-wrapper {
+    position: relative;
+  }
+
+  .sidebar {
+    position: fixed;
+    inset: 0 auto auto 0;
+    height: 100vh;
+    width: min(320px, 80vw);
+    padding: 2rem 1.25rem;
+    transform: translateX(-110%);
+    box-shadow: 4px 0 30px rgba(0, 0, 0, 0.4);
+    z-index: 20;
+    border-radius: 0 18px 18px 0;
+    background: #005691;
+  }
+
+  .sidebar.active {
+    transform: translateX(0);
+  }
+
+  .sidebar-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 15;
+  }
+
+  .main {
+    padding: 1.5rem;
+  }
+}

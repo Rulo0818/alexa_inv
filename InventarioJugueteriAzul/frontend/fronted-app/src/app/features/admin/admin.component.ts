@@ -1,4 +1,4 @@
-import { Component, computed } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
@@ -13,8 +13,17 @@ import { environment } from '../../../environments/environment';
 })
 export class AdminComponent {
   usuario = computed(() => this.auth.currentUser());
+  menu_abierto = signal(false);
 
   constructor(private auth: AuthService) {}
+
+  toggleMenu(): void {
+    this.menu_abierto.update(open => !open);
+  }
+
+  cerrarMenu(): void {
+    this.menu_abierto.set(false);
+  }
 
   fotoUsuario(): string | null {
     const u = this.usuario();
