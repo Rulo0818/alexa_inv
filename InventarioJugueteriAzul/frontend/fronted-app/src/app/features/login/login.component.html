@@ -1,0 +1,61 @@
+<div class="login-page">
+  <div class="card">
+    <header class="card-header">
+      <div class="header-content">
+        <span class="logo-icon">🧸</span>
+        <h1>Inventario Juguetería Azul</h1>
+      </div>
+      <p>Sistema de Gestión de Inventario</p>
+    </header>
+
+    <div class="card-body">
+      <div class="formato-usuario">
+        <div class="formato-title">
+          <span>📋</span> <strong>Formato de Usuario</strong>
+        </div>
+        <p>Tu usuario sigue el formato: <span class="highlight">nombre_apellidoEJA</span></p>
+        <p>Ejemplo: <span class="highlight">juan_martinezEJA</span></p>
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        @if (errorMessage) {
+          <div class="error-msg" role="alert">{{ errorMessage }}</div>
+        }
+
+        <div class="field">
+          <label for="username">Usuario</label>
+          <input
+            id="username"
+            type="text"
+            formControlName="username"
+            placeholder="nombre_apellidoEJA"
+          />
+          <span class="hint">Recuerda incluir "EJA" al final</span>
+        </div>
+
+        <div class="field">
+          <label for="contrasena">Contraseña</label>
+          <input
+            id="contrasena"
+            type="password"
+            formControlName="contrasena"
+            placeholder="Ingrese su contraseña"
+          />
+        </div>
+
+        <div class="field checkbox-field">
+          <label class="checkbox-label">
+            <input type="checkbox" formControlName="recordar" />
+            <span>Recordar sesión</span>
+          </label>
+        </div>
+
+        <button type="submit" class="btn-primary" [disabled]="loading">
+          {{ loading ? 'Iniciando sesión…' : 'Iniciar sesión' }}
+        </button>
+
+        <a routerLink="/recuperar" class="link-forgot">¿Olvidaste tu contraseña?</a>
+      </form>
+    </div>
+  </div>
+</div>

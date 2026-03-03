@@ -1,0 +1,29 @@
+<div class="inventario">
+  <h1 class="titulo">📦 Inventario</h1>
+
+  <div class="stats-row">
+    <div class="stat-card stat-blue">
+      <h3>TOTAL PRODUCTOS</h3>
+      <p class="stat-value">{{ stats()?.total_productos ?? '—' }}</p>
+    </div>
+    <div class="stat-card stat-green">
+      <h3>VALOR INVENTARIO</h3>
+      <p class="stat-value">{{ stats() ? formatMoney(stats()!.valor_inventario) : '—' }}</p>
+    </div>
+    <div class="stat-card stat-yellow">
+      <h3>STOCK BAJO</h3>
+      <p class="stat-value">{{ stats()?.stock_bajo ?? '—' }}</p>
+    </div>
+    <div class="stat-card stat-red">
+      <h3>AGOTADOS</h3>
+      <p class="stat-value">{{ stats()?.agotados ?? '—' }}</p>
+    </div>
+  </div>
+
+  <div class="action-bar">
+    <a routerLink="/admin/inventario/categorias" routerLinkActive="active" class="btn btn-secondary">⚙️ Categorías</a>
+    <a routerLink="/admin/inventario/agregar-producto" routerLinkActive="active" class="btn btn-primary">+ Agregar producto</a>
+  </div>
+
+  <router-outlet />
+</div>

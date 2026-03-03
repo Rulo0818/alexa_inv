@@ -1,0 +1,199 @@
+:host {
+  display: block;
+  --blue-title: #1a3a6b;
+  --blue-accent: #0db8d9;
+  --blue-bright: #38bdf8;
+  --blue-light: #d0edf8;
+  --blue-bg: #e6f4fb;
+  --green-accent: #22c55e;
+  --green-light: #dcfce7;
+  --white: #ffffff;
+  --border: #daeaf5;
+  --border-input: #b8d4e8;
+  --text-muted: #6b7280;
+}
+
+/* Filtros */
+.filters {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 200px;
+  padding: 0.6rem 1rem;
+  border: 1.5px solid var(--border-input);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background: var(--white);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--blue-accent);
+  box-shadow: 0 0 0 2px rgba(13, 184, 217, 0.2);
+}
+
+.category-select {
+  min-width: 180px;
+  padding: 0.6rem 1rem;
+  border: 1.5px solid var(--border-input);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background: var(--white);
+}
+
+.category-select:focus {
+  outline: none;
+  border-color: var(--blue-accent);
+}
+
+.btn {
+  padding: 0.6rem 1.25rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-search {
+  background: var(--blue-accent);
+  color: var(--white);
+}
+
+.btn-search:hover {
+  background: #0aa5c4;
+}
+
+/* Mensajes */
+.msg {
+  margin: 0 0 1rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.msg.error {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* Loading */
+.loading {
+  margin: 1rem 0;
+  color: var(--text-muted);
+}
+
+/* Tabla */
+.table-wrap {
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.product-table th {
+  background: var(--blue-bg);
+  color: var(--blue-title);
+  font-weight: 700;
+  text-align: left;
+  padding: 0.85rem 1rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border-bottom: 1px solid var(--border);
+}
+
+.product-table td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--border);
+  color: #374151;
+}
+
+.product-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+.product-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.stock-cero {
+  color: #dc2626;
+  font-weight: 600;
+}
+
+.rebaja {
+  color: #d97706;
+  font-weight: 600;
+}
+
+/* Badge estado */
+.estado-badge {
+  display: inline-block;
+  padding: 0.25rem 0.65rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.estado-badge.bueno {
+  background: var(--green-light);
+  color: var(--green-accent);
+}
+
+.estado-badge.malo {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* Botones de acción */
+.btn-sm {
+  padding: 0.4rem 0.85rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 1.5px solid #d1d5db;
+  background: var(--white);
+  color: #374151;
+  margin-right: 0.5rem;
+}
+
+.btn-sm:hover {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+}
+
+.btn-edit {
+  border-color: var(--blue-accent);
+  color: var(--blue-accent);
+}
+
+.btn-edit:hover {
+  background: var(--blue-light);
+  border-color: var(--blue-accent);
+  color: var(--blue-title);
+}
+
+.btn-delete {
+  border-color: #f87171;
+  color: #dc2626;
+}
+
+.btn-delete:hover {
+  background: #fee2e2;
+  border-color: #dc2626;
+}

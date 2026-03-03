@@ -1,0 +1,103 @@
+<div class="creacion-empleado">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h1 class="titulo"><span class="icono">&#128100;</span> Agregar Nuevo Empleado</h1>
+      <a routerLink="/admin/gestion-usuarios" class="btn-cerrar" aria-label="Cerrar">&#10005;</a>
+    </div>
+
+    <form class="modal-body" (ngSubmit)="enviar()">
+    @if (error) {
+      <div class="error-msg">{{ error }}</div>
+    }
+
+    <div class="foto-section">
+      <label class="label-section">FOTO (OPCIONAL)</label>
+      <div class="foto-area" [class.has-foto]="fotoPreview">
+        @if (fotoPreview) {
+          <img [src]="fotoPreview" alt="Vista previa" class="foto-preview" />
+          <button type="button" class="btn-quitar-foto" (click)="quitarFoto()">Quitar</button>
+        } @else {
+          <div class="foto-placeholder"><span class="placeholder-icon">&#128100;</span></div>
+          <input type="file" #fotoInput accept="image/jpeg,image/png,image/jpg,image/webp" (change)="onFotoChange($event)" hidden />
+          <button type="button" class="btn-seleccionar" (click)="fotoInput.click()">
+            <span class="camera-icon">&#128247;</span> Seleccionar imagen
+          </button>
+          <span class="foto-hint">Opcional - JPG, PNG, WebP (max 2MB)</span>
+        }
+      </div>
+    </div>
+
+    <div class="form-grid">
+      <div class="field">
+        <label>NOMBRE</label>
+        <input type="text" [(ngModel)]="nombre" name="nombre" placeholder="Juan" />
+      </div>
+      <div class="field">
+        <label>APELLIDO</label>
+        <input type="text" [(ngModel)]="apellido" name="apellido" placeholder="Lopez" />
+      </div>
+      <div class="field full-width">
+        <label>USERNAME (GENERADO AUTOMATICAMENTE)</label>
+        <div class="username-preview">{{ usernamePreview() }}</div>
+      </div>
+      <div class="field">
+        <label>EDAD</label>
+        <input type="number" [(ngModel)]="edad" name="edad" placeholder="25" min="1" max="120" />
+      </div>
+      <div class="field">
+        <label>TELEFONO</label>
+        <input type="text" [(ngModel)]="telefono" name="telefono" placeholder="246-135-2031" />
+      </div>
+      <div class="field full-width">
+        <label>DOMICILIO</label>
+        <input type="text" [(ngModel)]="domicilio" name="domicilio" placeholder="Calle, Numero, Colonia" />
+      </div>
+      <div class="field full-width">
+        <label>CONTRASENA TEMPORAL</label>
+        <input type="password" [(ngModel)]="contrasena_temporal" name="contrasena_temporal" placeholder="Ej: Temp123" />
+        <span class="field-hint">El empleado debera cambiarla en su primer inicio de sesion</span>
+      </div>
+    </div>
+
+    <div class="radio-section">
+      <label class="label-section">ROL</label>
+      <div class="radio-group">
+        <label class="radio-option">
+          <input type="radio" name="rol" [value]="2" [(ngModel)]="id_rol" />
+          <span>Empleado</span>
+        </label>
+        <label class="radio-option">
+          <input type="radio" name="rol" [value]="1" [(ngModel)]="id_rol" />
+          <span>Jefe</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="radio-section">
+      <label class="label-section">ESTADO</label>
+      <div class="radio-group">
+        <label class="radio-option">
+          <input type="radio" name="estado" [value]="true" [(ngModel)]="activo" />
+          <span>Activo</span>
+        </label>
+        <label class="radio-option">
+          <input type="radio" name="estado" [value]="false" [(ngModel)]="activo" />
+          <span>Inactivo</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <a routerLink="/admin/gestion-usuarios" class="btn-cancelar">Cancelar</a>
+      <button type="submit" class="btn-guardar" [disabled]="loading">
+        <span class="check-icon">&#10003;</span>
+        @if (loading) {
+          {{ loadingStep === 'foto' ? 'Subiendo imagen...' : 'Guardando empleado...' }}
+        } @else {
+          Guardar Empleado
+        }
+      </button>
+    </div>
+    </form>
+  </div>
+</div>

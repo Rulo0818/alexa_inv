@@ -1,0 +1,108 @@
+<div class="categorias-panel">
+  <header class="panel-header">
+    <h1>⚙️ Gestión de Categorías</h1>
+    <a routerLink="/admin/inventario" class="btn-close" aria-label="Cerrar">✕</a>
+  </header>
+
+  <div class="form-card">
+    <div class="form-row">
+      <div class="field">
+        <label>EMOJI</label>
+        <div class="emoji-field">
+          <button type="button" class="emoji-trigger" (click)="toggleEmojiPicker($event)">
+            <span class="emoji-trigger-value">{{ emojiSeleccionado() }}</span>
+            <span class="emoji-trigger-text">Seleccionar emoji</span>
+          </button>
+
+          @if (pickerAbierto()) {
+            <div class="emoji-picker" (click)="onPickerClick($event)">
+              <input
+                type="text"
+                class="emoji-search"
+                [ngModel]="busquedaEmoji()"
+                (ngModelChange)="busquedaEmoji.set($event)"
+                placeholder="Buscar emoji..."
+              />
+              <div class="emoji-categories">
+                @for (key of emojiCategoriaKeys; track key) {
+                  <button
+                    type="button"
+                    class="emoji-category-btn"
+                    [class.active]="categoriaEmojiActiva() === key"
+                    (click)="seleccionarCategoriaEmoji(key)"
+                    [title]="emojiCategorias[key].title"
+                  >
+                    {{ emojiCategorias[key].icon }}
+                  </button>
+                }
+              </div>
+              <div class="emoji-list">
+                @for (item of emojisFiltrados(); track item.emoji) {
+                  <button
+                    type="button"
+                    class="emoji-btn"
+                    [class.selected]="emojiSeleccionado() === item.emoji"
+                    (click)="seleccionarEmoji(item.emoji)"
+                    [title]="item.name_es"
+                  >
+                    {{ item.emoji }}
+                  </button>
+                }
+                @empty {
+                  <p class="emoji-empty">Sin resultados</p>
+                }
+              </div>
+            </div>
+          }
+        </div>
+        <div class="emoji-preview">{{ emojiSeleccionado() }}</div>
+      </div>
+      <div class="field flex-grow">
+        <label>NOMBRE DE CATEGORÍA</label>
+        <div class="input-row">
+          <input
+            type="text"
+            [ngModel]="nombreCategoria()"
+            (ngModelChange)="nombreCategoria.set($event)"
+            placeholder="Ej: Muñecas"
+          />
+          <button
+            type="button"
+            class="btn-add"
+            [disabled]="guardando()"
+            (click)="agregar()"
+          >
+            + Agregar
+          </button>
+        </div>
+        @if (editandoId()) {
+          <button type="button" class="btn-cancel" (click)="cancelarEdicion()">Cancelar edición</button>
+        }
+      </div>
+    </div>
+  </div>
+
+  @if (mensaje()) {
+    <p class="msg" [class.error]="mensaje()?.tipo === 'error'">{{ mensaje()?.text }}</p>
+  }
+
+  <div class="lista">
+    @if (loading()) {
+      <p class="loading">Cargando categorías…</p>
+    } @else {
+      @for (c of categorias(); track c.id) {
+        <div class="categoria-row">
+          <span class="cat-emoji">{{ c.emoji || '📦' }}</span>
+          <span class="cat-nombre">{{ c.nombre }}</span>
+          <div class="cat-acciones">
+            <button type="button" class="btn-editar" (click)="editar(c)">✏️ Editar</button>
+            <button type="button" class="btn-eliminar" (click)="eliminar(c)">🗑️ Eliminar</button>
+          </div>
+        </div>
+      }
+      @empty {
+        <p class="empty">No hay categorías. Agrega una arriba.</p>
+      }
+    }
+  </div>
+</div>

@@ -1,0 +1,153 @@
+.login-page {
+  min-height: 100vh;
+  background: #0081c2; /* Azul del fondo de la imagen */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card {
+  background: #fff;
+  width: 100%;
+  max-width: 450px;
+  border-radius: 20px;
+  overflow: hidden; /* Para que el header azul respete las esquinas redondeadas */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+  background: #004b93; /* Azul oscuro del encabezado */
+  color: white;
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+.header-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+
+.card-header h1 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.card-header p {
+  margin: 0;
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+.card-body {
+  padding: 2rem;
+}
+
+/* Cuadro de información celeste */
+.formato-usuario {
+  background: #e1f5fe;
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  color: #004b93;
+  font-size: 0.85rem;
+}
+
+.formato-title {
+  margin-bottom: 5px;
+}
+
+.highlight {
+  color: #0077b6;
+  font-weight: bold;
+}
+
+/* Campos de formulario */
+.field {
+  margin-bottom: 1.2rem;
+}
+
+.field label {
+  display: block;
+  font-weight: bold;
+  color: #004b93;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+
+.field input[type="text"],
+.field input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #b3e5fc;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+  background-color: #fcfdfe;
+}
+
+.hint {
+  font-size: 0.75rem;
+  color: #888;
+  margin-top: 4px;
+  display: block;
+}
+
+/* Checkbox */
+.checkbox-field {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: #555;
+  cursor: pointer;
+}
+
+/* Botón */
+.btn-primary {
+  width: 100%;
+  padding: 14px;
+  background: #0081c2;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.3s;
+}
+
+.btn-primary:hover {
+  background: #006da5;
+}
+
+.link-forgot {
+  display: block;
+  text-align: center;
+  margin-top: 1.5rem;
+  color: #0081c2;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.error-msg {
+  background: #ffebee;
+  color: #c62828;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+  text-align: center;
+}

@@ -1,0 +1,133 @@
+<div class="historial-ventas">
+  <h1 class="titulo">📊 Historial de Ventas</h1>
+
+  <div class="filters-section">
+    <div class="filter-row">
+      <div class="field">
+        <label>FECHA INICIO</label>
+        <input type="date" [ngModel]="fechaInicio()" (ngModelChange)="fechaInicio.set($event)" />
+      </div>
+      <div class="field">
+        <label>FECHA FIN</label>
+        <input type="date" [ngModel]="fechaFin()" (ngModelChange)="fechaFin.set($event)" />
+      </div>
+      <div class="field">
+        <label>EMPLEADO</label>
+        <select [ngModel]="empleadoFiltro()" (ngModelChange)="empleadoFiltro.set($event)">
+          <option value="">Todos los empleados</option>
+          @for (e of empleados(); track e.id) {
+            <option [value]="e.id">{{ e.nombre }} {{ e.apellido }}</option>
+          }
+        </select>
+      </div>
+      <div class="field">
+        <label>MÉTODO DE PAGO</label>
+        <select [ngModel]="metodoFiltro()" (ngModelChange)="metodoFiltro.set($event)">
+          <option value="">Todos</option>
+          <option value="efectivo">Efectivo</option>
+          <option value="transferencia">Transferencia</option>
+        </select>
+      </div>
+    </div>
+    <div class="filter-row">
+      <input
+        type="text"
+        class="search-input"
+        [ngModel]="searchText()"
+        (ngModelChange)="searchText.set($event)"
+        placeholder="Buscar por ID de venta o producto..."
+      />
+      <button type="button" class="btn-filtrar" (click)="aplicarFiltros()">Aplicar Filtros</button>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <h3>TOTAL DEL PERIODO</h3>
+      <p class="stat-value">{{ stats() ? formatMoney(stats()!.total_ventas) : '—' }}</p>
+      <p class="stat-desc">{{ rangoTexto() }}</p>
+    </div>
+    <div class="stat-card">
+      <h3>VENTAS REALIZADAS</h3>
+      <p class="stat-value">{{ stats()?.ventas_realizadas ?? '—' }}</p>
+      <p class="stat-desc">{{ stats() ? formatMoney(stats()!.promedio_venta) + '/venta' : '' }}</p>
+    </div>
+    <div class="stat-card stat-efectivo">
+      <h3>EFECTIVO</h3>
+      <p class="stat-value">{{ stats() ? formatMoney(stats()!.ventas_efectivo) : '—' }}</p>
+      <p class="stat-desc">{{ stats() ? (stats()!.porcentaje_efectivo | number:'1.0-0') + '% del total' : '' }}</p>
+    </div>
+    <div class="stat-card stat-transfer">
+      <h3>TRANSFERENCIA</h3>
+      <p class="stat-value">{{ stats() ? formatMoney(stats()!.ventas_transferencia) : '—' }}</p>
+      <p class="stat-desc">{{ stats() ? (stats()!.porcentaje_transferencia | number:'1.0-0') + '% del total' : '' }}</p>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    @if (loading()) {
+      <p class="loading">Cargando ventas…</p>
+    } @else {
+      <table class="ventas-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>FECHA Y HORA</th>
+            <th>EMPLEADO</th>
+            <th>PRODUCTOS</th>
+            <th>TOTAL</th>
+            <th>MÉTODO</th>
+            <th>ACCIONES</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (v of ventasFiltradas(); track v.id) {
+            <tr>
+              <td>#{{ formatId(v.id) }}</td>
+              <td>{{ formatFecha(v.fecha, v.hora) }}</td>
+              <td>{{ v.nombre_empleado }} {{ v.apellido_empleado }}</td>
+              <td class="productos-cell">{{ productosTexto(v.productos) }}</td>
+              <td>{{ formatMoney(v.total) }}</td>
+              <td>
+                <span class="badge" [class.efectivo]="v.metodo_pago === 'efectivo'" [class.transferencia]="v.metodo_pago === 'transferencia'">
+                  {{ v.metodo_pago === 'efectivo' ? 'Efectivo' : 'Transferencia' }}
+                </span>
+              </td>
+              <td>
+                <button type="button" class="btn-detalle" (click)="verDetalle(v)">Ver detalle</button>
+              </td>
+            </tr>
+          }
+          @empty {
+            <tr>
+              <td colspan="7">No hay ventas en el período seleccionado</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  </div>
+
+  @if (detalleVenta()) {
+    <div class="modal-overlay" (click)="cerrarDetalle()">
+      <div class="modal" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h2>Detalle de venta #{{ detalleVenta()!.id }}</h2>
+          <button type="button" class="btn-cerrar" (click)="cerrarDetalle()">✕</button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Empleado:</strong> {{ detalleVenta()!.nombre_empleado }} {{ detalleVenta()!.apellido_empleado }}</p>
+          <p><strong>Fecha:</strong> {{ formatFecha(detalleVenta()!.fecha, detalleVenta()!.hora) }}</p>
+          <p><strong>Método:</strong> {{ detalleVenta()!.metodo_pago === 'efectivo' ? 'Efectivo' : 'Transferencia' }}</p>
+          <p><strong>Productos:</strong></p>
+          <ul>
+            @for (p of detalleVenta()!.productos; track p.nombre) {
+              <li>{{ p.cantidad }}x {{ p.nombre }} - {{ formatMoney(p.subtotal) }}</li>
+            }
+          </ul>
+          <p class="total"><strong>Total: {{ formatMoney(detalleVenta()!.total) }}</strong></p>
+        </div>
+      </div>
+    </div>
+  }
+</div>

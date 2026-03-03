@@ -1,0 +1,556 @@
+/* ============================================================
+   FUENTE
+   ============================================================ */
+   @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+   /* ============================================================
+      TOKENS — misma paleta del sistema
+      ============================================================ */
+   :host {
+     --blue-title:    #1a3a6b;
+     --blue-accent:   #0db8d9;
+     --blue-bright:   #38bdf8;
+     --blue-light:    #d0edf8;
+     --blue-bg:       #e6f4fb;
+     --green-accent:  #22c55e;
+     --green-light:   #dcfce7;
+     --white:         #ffffff;
+     --text-primary:  #1e293b;
+     --text-secondary:#475569;
+     --text-muted:    #94a3b8;
+     --border:        #daeaf5;
+     --border-input:  #b8d4e8;
+     --shadow-card:   0 2px 16px rgba(14, 60, 120, 0.09),
+                      0 1px 4px  rgba(14, 60, 120, 0.05);
+     --radius-card:   14px;
+     --radius-md:     10px;
+     --radius-sm:     8px;
+     --radius-pill:   99px;
+     --transition:    0.15s ease;
+   
+     font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+     -webkit-font-smoothing: antialiased;
+   }
+   
+   /* ============================================================
+      COMPONENTE RAÍZ
+      ============================================================ */
+   .historial-ventas {
+     padding-bottom: 2rem;
+   }
+   
+   /* ============================================================
+      TÍTULO
+      ============================================================ */
+   .titulo {
+     font-size: 1.75rem;
+     font-weight: 800;
+     color: var(--blue-title);
+     margin: 0 0 1.5rem;
+     letter-spacing: -0.025em;
+     display: flex;
+     align-items: center;
+     gap: 0.5rem;
+   }
+   
+   /* ============================================================
+      FILTROS
+      ============================================================ */
+   .filters-section {
+     background: var(--white);
+     border-radius: var(--radius-card);
+     padding: 1.25rem 1.4rem;
+     margin-bottom: 1.25rem;
+     box-shadow: var(--shadow-card);
+     border: 1px solid rgba(200, 228, 242, 0.6);
+   }
+   
+   .filter-row {
+     display: flex;
+     gap: 1rem;
+     flex-wrap: wrap;
+     align-items: flex-end;
+     margin-bottom: 0.9rem;
+   }
+   
+   .filter-row:last-child {
+     margin-bottom: 0;
+   }
+   
+   .field {
+     display: flex;
+     flex-direction: column;
+     gap: 0.35rem;
+   }
+   
+   .field label {
+     font-size: 0.68rem;
+     font-weight: 700;
+     color: var(--blue-accent);
+     text-transform: uppercase;
+     letter-spacing: 0.07em;
+   }
+   
+   .field input[type="date"],
+   .field select {
+     padding: 0.55rem 0.85rem;
+     border: 1.5px solid var(--border-input);
+     border-radius: var(--radius-sm);
+     background: var(--white);
+     color: var(--text-primary);
+     font-family: inherit;
+     font-size: 0.9rem;
+     transition: border-color var(--transition), box-shadow var(--transition);
+     min-width: 150px;
+   }
+   
+   .field select {
+     min-width: 190px;
+     appearance: none;
+     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%230db8d9' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+     background-repeat: no-repeat;
+     background-position: right 0.8rem center;
+     padding-right: 2.2rem;
+     cursor: pointer;
+   }
+   
+   .field input:focus,
+   .field select:focus {
+     outline: none;
+     border-color: var(--blue-accent);
+     box-shadow: 0 0 0 3px rgba(13, 184, 217, 0.15);
+   }
+   
+   /* Buscador amplio */
+   .search-box {
+     display: flex;
+     align-items: center;
+     gap: 0.6rem;
+     padding: 0.6rem 1rem;
+     border: 1.5px solid var(--border-input);
+     border-radius: var(--radius-sm);
+     background: var(--white);
+     margin-bottom: 0.9rem;
+     transition: border-color var(--transition), box-shadow var(--transition);
+   }
+   
+   .search-box:focus-within {
+     border-color: var(--blue-accent);
+     box-shadow: 0 0 0 3px rgba(13, 184, 217, 0.15);
+   }
+   
+   .search-icon {
+     font-size: 0.95rem;
+     color: var(--text-muted);
+     flex-shrink: 0;
+   }
+   
+   .search-input {
+     flex: 1;
+     border: none;
+     outline: none;
+     font-family: inherit;
+     font-size: 0.925rem;
+     color: var(--text-primary);
+     background: transparent;
+   }
+   
+   .search-input::placeholder {
+     color: var(--text-muted);
+   }
+   
+   /* Botón Aplicar Filtros */
+   .btn-filtrar {
+     display: inline-flex;
+     align-items: center;
+     gap: 0.4rem;
+     padding: 0.6rem 1.25rem;
+     border: none;
+     border-radius: var(--radius-pill);
+     background: linear-gradient(90deg, #0db8d9 0%, #38bdf8 100%);
+     color: var(--white);
+     font-family: inherit;
+     font-size: 0.875rem;
+     font-weight: 700;
+     cursor: pointer;
+     box-shadow: 0 2px 10px rgba(13, 184, 217, 0.35);
+     transition: box-shadow var(--transition), transform var(--transition);
+   }
+   
+   .btn-filtrar:hover {
+     box-shadow: 0 4px 16px rgba(13, 184, 217, 0.45);
+     transform: translateY(-1px);
+   }
+   
+   .btn-filtrar:active {
+     transform: translateY(0);
+   }
+   
+   /* ============================================================
+      STATS ROW — 4 cards con borde izquierdo de color
+      ============================================================ */
+   .stats-row {
+     display: grid;
+     grid-template-columns: repeat(4, 1fr);
+     gap: 1rem;
+     margin-bottom: 1.5rem;
+   }
+   
+   .stat-card {
+     background: var(--white);
+     border-radius: var(--radius-card);
+     padding: 1.1rem 1.4rem;
+     box-shadow: var(--shadow-card);
+     border-left: 4px solid var(--blue-bright);
+     transition: transform var(--transition), box-shadow var(--transition);
+   }
+   
+   .stat-card:hover {
+     transform: translateY(-2px);
+     box-shadow: 0 8px 24px rgba(14, 60, 120, 0.12);
+   }
+   
+   .stat-card:nth-child(1) { border-left-color: var(--blue-bright); }
+   .stat-card:nth-child(2) { border-left-color: var(--blue-accent); }
+   .stat-card.stat-efectivo  { border-left-color: var(--green-accent); }
+   .stat-card.stat-transfer  { border-left-color: #3b82f6; }
+   
+   .stat-card h3 {
+     margin: 0 0 0.4rem;
+     font-size: 0.68rem;
+     font-weight: 700;
+     color: var(--text-secondary);
+     letter-spacing: 0.07em;
+     text-transform: uppercase;
+   }
+   
+   .stat-value {
+     margin: 0 0 0.25rem;
+     font-size: 1.8rem;
+     font-weight: 800;
+     color: var(--blue-bright);
+     letter-spacing: -0.025em;
+     line-height: 1;
+     font-family: 'Courier Prime', 'Courier New', monospace;
+   }
+   
+   .stat-card:nth-child(2) .stat-value { color: var(--blue-accent); }
+   .stat-card.stat-efectivo .stat-value { color: var(--green-accent); }
+   .stat-card.stat-transfer .stat-value { color: #3b82f6; }
+   
+   .stat-desc {
+     margin: 0;
+     font-size: 0.78rem;
+     color: var(--text-muted);
+     font-weight: 400;
+   }
+   
+   /* ============================================================
+      TABLA
+      ============================================================ */
+   .table-wrap {
+     background: var(--white);
+     border-radius: var(--radius-card);
+     overflow: hidden;
+     box-shadow: var(--shadow-card);
+     border: 1px solid rgba(200, 228, 242, 0.6);
+   }
+   
+   .loading {
+     padding: 2.5rem;
+     text-align: center;
+     color: var(--text-muted);
+     font-size: 0.925rem;
+   }
+   
+   .ventas-table {
+     width: 100%;
+     border-collapse: collapse;
+     font-size: 0.875rem;
+   }
+   
+   /* THEAD — gradiente celeste */
+   .ventas-table thead tr {
+     background: linear-gradient(90deg, #0db8d9 0%, #38bdf8 100%);
+   }
+   
+   .ventas-table th {
+     padding: 0.75rem 1rem;
+     text-align: left;
+     font-weight: 700;
+     font-size: 0.7rem;
+     text-transform: uppercase;
+     letter-spacing: 0.07em;
+     color: var(--white);
+     white-space: nowrap;
+   }
+   
+   .ventas-table th:first-child { padding-left: 1.4rem; }
+   .ventas-table th:last-child  { padding-right: 1.4rem; }
+   
+   /* TBODY */
+   .ventas-table tbody tr {
+     border-bottom: 1px solid var(--border);
+     transition: background var(--transition);
+   }
+   
+   .ventas-table tbody tr:last-child {
+     border-bottom: none;
+   }
+   
+   .ventas-table tbody tr:hover {
+     background: #f0f9ff;
+   }
+   
+   .ventas-table td {
+     padding: 0.9rem 1rem;
+     color: var(--text-secondary);
+     vertical-align: middle;
+   }
+   
+   .ventas-table td:first-child { padding-left: 1.4rem; }
+   .ventas-table td:last-child  { padding-right: 1.4rem; }
+   
+   /* ID de venta */
+   .venta-id {
+     font-weight: 700;
+     color: var(--blue-title);
+     font-size: 0.875rem;
+   }
+   
+   /* Fecha y hora */
+   .fecha-hora {
+     font-size: 0.875rem;
+     color: var(--text-secondary);
+     line-height: 1.4;
+   }
+   
+   .hora {
+     font-size: 0.78rem;
+     color: var(--text-muted);
+   }
+   
+   /* Empleado */
+   .empleado-nombre {
+     font-weight: 600;
+     color: var(--blue-accent);
+   }
+   
+   /* Productos */
+   .productos-cell {
+     font-size: 0.85rem;
+     color: var(--text-secondary);
+     line-height: 1.6;
+     max-width: 220px;
+   }
+   
+   .prod-qty {
+     font-weight: 700;
+     color: var(--text-primary);
+   }
+   
+   /* Total */
+   .total-valor {
+     font-weight: 700;
+     color: var(--blue-title);
+     font-size: 0.9rem;
+     font-family: 'Courier Prime', 'Courier New', monospace;
+   }
+   
+   /* ============================================================
+      BADGES — método de pago
+      ============================================================ */
+   .badge {
+     display: inline-flex;
+     align-items: center;
+     gap: 0.3rem;
+     padding: 0.25rem 0.7rem;
+     border-radius: var(--radius-pill);
+     font-size: 0.78rem;
+     font-weight: 600;
+     white-space: nowrap;
+   }
+   
+   .badge.efectivo {
+     background: var(--green-light);
+     color: var(--green-accent);
+     border: 1px solid rgba(34, 197, 94, 0.25);
+   }
+   
+   .badge.transferencia {
+     background: #dbeafe;
+     color: #1d4ed8;
+     border: 1px solid rgba(59, 130, 246, 0.25);
+   }
+   
+   /* ============================================================
+      BOTÓN VER DETALLE
+      ============================================================ */
+   .btn-detalle {
+     display: inline-flex;
+     align-items: center;
+     gap: 0.35rem;
+     padding: 0.38rem 0.85rem;
+     background: #f0f9ff;
+     color: var(--blue-accent);
+     border: 1.5px solid var(--blue-light);
+     border-radius: var(--radius-sm);
+     font-family: inherit;
+     font-size: 0.8rem;
+     font-weight: 600;
+     cursor: pointer;
+     transition: background var(--transition), border-color var(--transition);
+   }
+   
+   .btn-detalle:hover {
+     background: var(--blue-light);
+     border-color: var(--blue-accent);
+   }
+   
+   /* ============================================================
+      MODAL DE DETALLE
+      ============================================================ */
+   .modal-overlay {
+     position: fixed;
+     inset: 0;
+     background: rgba(14, 40, 90, 0.35);
+     backdrop-filter: blur(3px);
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     z-index: 1000;
+     padding: 1.5rem;
+     animation: overlayIn 0.2s ease both;
+   }
+   
+   @keyframes overlayIn {
+     from { opacity: 0; }
+     to   { opacity: 1; }
+   }
+   
+   .modal {
+     background: var(--white);
+     border-radius: var(--radius-card);
+     max-width: 440px;
+     width: 100%;
+     max-height: 90vh;
+     overflow-y: auto;
+     box-shadow: 0 20px 60px rgba(14, 60, 120, 0.2), 0 4px 16px rgba(14, 60, 120, 0.12);
+     animation: modalUp 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+   }
+   
+   @keyframes modalUp {
+     from { opacity: 0; transform: translateY(20px) scale(0.97); }
+     to   { opacity: 1; transform: translateY(0)    scale(1); }
+   }
+   
+   .modal-header {
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     padding: 1.1rem 1.5rem;
+     background: linear-gradient(90deg, #0db8d9 0%, #38bdf8 100%);
+     position: sticky;
+     top: 0;
+   }
+   
+   .modal-header h2 {
+     margin: 0;
+     font-size: 1.05rem;
+     font-weight: 700;
+     color: var(--white);
+     letter-spacing: -0.01em;
+   }
+   
+   .btn-cerrar {
+     width: 2rem;
+     height: 2rem;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     background: rgba(255,255,255,0.9);
+     border: none;
+     border-radius: 50%;
+     font-size: 1rem;
+     font-weight: 700;
+     color: var(--blue-title);
+     cursor: pointer;
+     line-height: 1;
+     transition: background var(--transition), transform var(--transition);
+   }
+   
+   .btn-cerrar:hover {
+     background: var(--white);
+     transform: scale(1.1);
+   }
+   
+   .modal-body {
+     padding: 1.4rem 1.5rem;
+     background: var(--blue-bg);
+   }
+   
+   .modal-body p {
+     margin: 0 0 0.65rem;
+     font-size: 0.9rem;
+     color: var(--text-secondary);
+     line-height: 1.55;
+   }
+   
+   .modal-body p strong {
+     color: var(--text-primary);
+     font-weight: 600;
+   }
+   
+   .modal-body .total {
+     margin-top: 1rem;
+     font-size: 1.05rem;
+     font-weight: 700;
+     color: var(--blue-title);
+   }
+   
+   .modal-body ul {
+     padding-left: 1.1rem;
+     margin: 0 0 0.75rem;
+   }
+   
+   .modal-body ul li {
+     font-size: 0.875rem;
+     color: var(--text-secondary);
+     margin-bottom: 0.35rem;
+     line-height: 1.45;
+   }
+   
+   /* ============================================================
+      RESPONSIVE
+      ============================================================ */
+   @media (max-width: 960px) {
+     .stats-row {
+       grid-template-columns: repeat(2, 1fr);
+     }
+   }
+   
+   @media (max-width: 640px) {
+     .filter-row {
+       flex-direction: column;
+       align-items: stretch;
+     }
+   
+     .field input,
+     .field select {
+       width: 100%;
+       min-width: 0;
+     }
+   
+     .stats-row {
+       grid-template-columns: 1fr 1fr;
+     }
+   
+     .ventas-table {
+       font-size: 0.82rem;
+     }
+   
+     .ventas-table th,
+     .ventas-table td {
+       padding: 0.6rem 0.65rem;
+     }
+   }

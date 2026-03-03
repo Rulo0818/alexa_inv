@@ -1,0 +1,501 @@
+/* ============================================================
+   FUENTE
+   ============================================================ */
+   @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+   /* ============================================================
+      TOKENS — misma paleta que panel admin
+      ============================================================ */
+   :host {
+     /* Azules */
+     --blue-title:    #1a3a6b;
+     --blue-accent:   #0db8d9;
+     --blue-bright:   #38bdf8;
+     --blue-light:    #d0edf8;
+     --blue-bg:       #e6f4fb;
+     --blue-chip:     #0db8d9;
+   
+     /* Verdes */
+     --green-badge:   #4ade80;
+     --green-accent:  #22c55e;
+     --green-light:   #dcfce7;
+   
+     /* Neutros */
+     --white:         #ffffff;
+     --text-primary:  #1e293b;
+     --text-secondary:#475569;
+     --text-muted:    #94a3b8;
+     --border:        #daeaf5;
+     --border-input:  #b8d4e8;
+   
+     /* Sombras */
+     --shadow-card:   0 2px 16px rgba(14, 60, 120, 0.09),
+                      0 1px 4px  rgba(14, 60, 120, 0.05);
+   
+     /* Radios */
+     --radius-card:   14px;
+     --radius-md:     10px;
+     --radius-sm:     8px;
+     --radius-pill:   99px;
+   
+     --transition:    0.15s ease;
+   
+     font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+     -webkit-font-smoothing: antialiased;
+   }
+   
+   /* ============================================================
+      PÁGINA
+      ============================================================ */
+   .nueva-venta-page {
+     padding-bottom: 2rem;
+   }
+   
+   /* ============================================================
+      STATS ROW — barra celeste igual que en empleado
+      ============================================================ */
+   .stats-row {
+     display: flex;
+     gap: 0;
+     margin-bottom: 1.25rem;
+     background: linear-gradient(90deg, #0db8d9 0%, #38bdf8 100%);
+     border-radius: var(--radius-card);
+     overflow: hidden;
+     box-shadow: 0 4px 16px rgba(13, 184, 217, 0.3);
+   }
+   
+   .stat-card {
+     flex: 1;
+     padding: 0.9rem 1.4rem;
+     position: relative;
+   }
+   
+   /* Separador entre stats */
+   .stat-card + .stat-card::before {
+     content: "";
+     position: absolute;
+     left: 0;
+     top: 20%;
+     height: 60%;
+     width: 1px;
+     background: rgba(255, 255, 255, 0.25);
+   }
+   
+   .stat-card h3 {
+     margin: 0 0 0.25rem;
+     font-size: 0.68rem;
+     font-weight: 700;
+     color: rgba(255, 255, 255, 0.8);
+     letter-spacing: 0.07em;
+     text-transform: uppercase;
+   }
+   
+   .stat-value {
+     margin: 0;
+     font-size: 1.35rem;
+     font-weight: 800;
+     color: var(--white);
+     letter-spacing: -0.02em;
+   }
+   
+   /* ============================================================
+      SECTION
+      ============================================================ */
+   .section {
+     background: var(--white);
+     border-radius: var(--radius-card);
+     padding: 1.25rem 1.4rem;
+     margin-bottom: 1rem;
+     box-shadow: var(--shadow-card);
+     border: 1px solid rgba(200, 228, 242, 0.6);
+   }
+   
+   .section h2 {
+     margin: 0 0 0.25rem;
+     font-size: 1.05rem;
+     font-weight: 700;
+     color: var(--blue-title);
+     display: flex;
+     align-items: center;
+     gap: 0.5rem;
+     letter-spacing: -0.01em;
+   }
+   
+   .section-desc {
+     margin: 0 0 1rem;
+     font-size: 0.85rem;
+     color: var(--text-muted);
+   }
+   
+   /* ============================================================
+      PILLS DE CATEGORÍA
+      ============================================================ */
+   .category-pills {
+     display: flex;
+     flex-wrap: wrap;
+     gap: 0.45rem;
+     margin-bottom: 1rem;
+   }
+   
+   .pill {
+     padding: 0.35rem 0.9rem;
+     border-radius: var(--radius-pill);
+     border: 1px solid var(--border-input);
+     background: var(--white);
+     color: var(--blue-title);
+     font-family: inherit;
+     font-size: 0.84rem;
+     font-weight: 500;
+     cursor: pointer;
+     transition: background var(--transition), border-color var(--transition), color var(--transition);
+     display: inline-flex;
+     align-items: center;
+     gap: 0.3rem;
+   }
+   
+   .pill:hover {
+     background: var(--blue-bg);
+     border-color: var(--blue-accent);
+   }
+   
+   .pill.active {
+     background: var(--blue-light);
+     border-color: var(--blue-accent);
+     color: var(--blue-title);
+     font-weight: 600;
+   }
+   
+   /* ============================================================
+      BUSCADOR
+      ============================================================ */
+   .search-box {
+     display: flex;
+     align-items: center;
+     gap: 0.6rem;
+     border: 1.5px solid var(--border-input);
+     border-radius: var(--radius-sm);
+     padding: 0.55rem 0.9rem;
+     margin-bottom: 0.35rem;
+     background: var(--white);
+     transition: border-color var(--transition), box-shadow var(--transition);
+   }
+   
+   .search-box:focus-within {
+     border-color: var(--blue-accent);
+     box-shadow: 0 0 0 3px rgba(13, 184, 217, 0.15);
+   }
+   
+   .search-icon {
+     font-size: 0.95rem;
+     color: var(--text-muted);
+     flex-shrink: 0;
+   }
+   
+   .search-box input {
+     flex: 1;
+     border: none;
+     outline: none;
+     font-family: inherit;
+     font-size: 0.925rem;
+     color: var(--text-primary);
+     background: transparent;
+   }
+   
+   .search-box input::placeholder {
+     color: var(--text-muted);
+   }
+   
+   .hint {
+     margin: 0 0 1rem;
+     font-size: 0.8rem;
+     color: var(--text-muted);
+     text-align: center;
+     padding: 0.75rem 0;
+   }
+   
+   /* ============================================================
+      GRID DE PRODUCTOS
+      ============================================================ */
+   .productos-grid {
+     display: grid;
+     grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+     gap: 0.7rem;
+   }
+   
+   .producto-card {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     padding: 1rem 0.75rem;
+     border: 1.5px solid var(--border);
+     border-radius: var(--radius-md);
+     background: #fafcff;
+     cursor: pointer;
+     text-align: center;
+     transition: background var(--transition), border-color var(--transition), transform var(--transition);
+   }
+   
+   .producto-card:hover:not(:disabled) {
+     background: var(--blue-bg);
+     border-color: var(--blue-accent);
+     transform: translateY(-2px);
+   }
+   
+   .producto-card:disabled {
+     opacity: 0.55;
+     cursor: not-allowed;
+   }
+   
+   .prod-emoji {
+     font-size: 1.6rem;
+     margin-bottom: 0.4rem;
+     line-height: 1;
+   }
+   
+   .prod-nombre {
+     font-size: 0.85rem;
+     font-weight: 600;
+     color: var(--text-primary);
+     margin-bottom: 0.2rem;
+     line-height: 1.3;
+   }
+   
+   .prod-precio {
+     font-size: 0.9rem;
+     font-weight: 700;
+     color: var(--blue-title);
+   }
+   
+   .prod-stock {
+     font-size: 0.72rem;
+     color: #dc2626;
+     margin-top: 0.2rem;
+     font-weight: 500;
+   }
+   
+   .empty-hint {
+     color: var(--text-muted);
+     font-size: 0.9rem;
+     text-align: center;
+     padding: 1rem 0;
+   }
+   
+   /* ============================================================
+      CARRITO
+      ============================================================ */
+   .cart-empty {
+     color: var(--text-muted);
+     font-size: 0.9rem;
+     text-align: center;
+     padding: 1.5rem 0;
+   }
+   
+   .cart-list {
+     list-style: none;
+     margin: 0;
+     padding: 0;
+   }
+   
+   .cart-item {
+     display: flex;
+     align-items: center;
+     gap: 0.75rem;
+     padding: 0.65rem 0;
+     border-bottom: 1px solid var(--border);
+   }
+   
+   .cart-item:last-child {
+     border-bottom: none;
+   }
+   
+   .cart-item-name {
+     flex: 1;
+     font-size: 0.9rem;
+     font-weight: 500;
+     color: var(--text-primary);
+   }
+   
+   .cart-item-qty {
+     display: flex;
+     align-items: center;
+     gap: 0.35rem;
+   }
+   
+   .cart-item-qty button {
+     width: 1.6rem;
+     height: 1.6rem;
+     border: 1.5px solid var(--border-input);
+     border-radius: var(--radius-sm);
+     background: var(--white);
+     cursor: pointer;
+     font-size: 1rem;
+     line-height: 1;
+     font-family: inherit;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     transition: background var(--transition), border-color var(--transition);
+   }
+   
+   .cart-item-qty button:hover {
+     background: var(--blue-bg);
+     border-color: var(--blue-accent);
+   }
+   
+   .cart-item-price {
+     font-weight: 700;
+     min-width: 5rem;
+     text-align: right;
+     font-size: 0.9rem;
+     color: var(--text-primary);
+   }
+   
+   .btn-remove {
+     background: none;
+     border: none;
+     color: #dc2626;
+     cursor: pointer;
+     padding: 0.2rem;
+     font-size: 1rem;
+     line-height: 1;
+     opacity: 0.7;
+     transition: opacity var(--transition);
+   }
+   
+   .btn-remove:hover {
+     opacity: 1;
+   }
+   
+   /* ============================================================
+      MÉTODO DE PAGO
+      ============================================================ */
+   .payment-buttons {
+     display: flex;
+     gap: 0.85rem;
+   }
+   
+   .payment-btn {
+     flex: 1;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     gap: 0.45rem;
+     padding: 1rem;
+     border: 2px solid var(--border);
+     border-radius: var(--radius-md);
+     background: var(--white);
+     cursor: pointer;
+     font-family: inherit;
+     font-size: 0.875rem;
+     font-weight: 600;
+     color: var(--text-secondary);
+     transition: border-color var(--transition), background var(--transition), color var(--transition);
+   }
+   
+   .payment-btn:hover {
+     border-color: var(--blue-accent);
+     background: var(--blue-bg);
+   }
+   
+   .payment-btn.active {
+     border-color: var(--blue-accent);
+     background: var(--blue-light);
+     color: var(--blue-title);
+   }
+   
+   .payment-icon {
+     font-size: 1.5rem;
+     line-height: 1;
+   }
+   
+   /* ============================================================
+      TOTALES
+      ============================================================ */
+   .totales {
+     margin-top: 0.75rem;
+   }
+   
+   .totales p {
+     margin: 0.45rem 0;
+     font-size: 0.9rem;
+     color: var(--text-soft, var(--text-secondary));
+     display: flex;
+     justify-content: space-between;
+   }
+   
+   /* Subtotal — fondo azul muy suave */
+   .subtotal-bar {
+     background: var(--blue-bg);
+     color: var(--text-secondary);
+     padding: 0.6rem 1rem;
+     border-radius: var(--radius-sm);
+     font-size: 0.9rem;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     margin: 0.35rem 0;
+   }
+   
+   /* Total — gradiente celeste igual que stats y header */
+   .total-bar {
+     background: linear-gradient(90deg, #0db8d9 0%, #38bdf8 100%);
+     color: var(--white);
+     padding: 0.85rem 1.2rem;
+     border-radius: var(--radius-md);
+     font-weight: 800;
+     font-size: 1.15rem;
+     margin: 0.5rem 0;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     letter-spacing: -0.01em;
+     box-shadow: 0 4px 14px rgba(13, 184, 217, 0.3);
+   }
+   
+   .msg {
+     font-size: 0.875rem;
+     margin: 0.4rem 0;
+     padding: 0.5rem 0.75rem;
+     border-radius: var(--radius-sm);
+   }
+   
+   .msg.error {
+     color: #dc2626;
+     background: #fff0f0;
+     border: 1px solid #fecaca;
+   }
+   
+   /* ============================================================
+      BOTÓN FINALIZAR
+      ============================================================ */
+   .btn-finalizar {
+     width: 100%;
+     padding: 0.9rem;
+     background: var(--blue-title);
+     color: var(--white);
+     border: none;
+     border-radius: var(--radius-sm);
+     font-family: inherit;
+     font-size: 0.95rem;
+     font-weight: 700;
+     cursor: pointer;
+     margin-top: 0.5rem;
+     letter-spacing: 0.01em;
+     transition: background var(--transition), box-shadow var(--transition), transform var(--transition);
+   }
+   
+   .btn-finalizar:hover:not(:disabled) {
+     background: #1e5799;
+     box-shadow: 0 4px 14px rgba(26, 58, 107, 0.3);
+     transform: translateY(-1px);
+   }
+   
+   .btn-finalizar:active:not(:disabled) {
+     transform: translateY(0);
+     box-shadow: none;
+   }
+   
+   .btn-finalizar:disabled {
+     opacity: 0.5;
+     cursor: not-allowed;
+   }

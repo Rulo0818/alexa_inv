@@ -1,0 +1,93 @@
+<div class="editar-empleado">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h1 class="titulo">Editar Empleado</h1>
+      <a routerLink="/admin/gestion-usuarios" class="btn-cerrar" aria-label="Cerrar">X</a>
+    </div>
+
+    @if (loadingData) {
+      <div class="loading-wrap"><p>Cargando datos...</p></div>
+    } @else if (notFound) {
+      <div class="modal-body">
+        <div class="error-msg">{{ error }}</div>
+        <a routerLink="/admin/gestion-usuarios" class="btn-cancelar">Volver</a>
+      </div>
+    } @else {
+      <form class="modal-body" (ngSubmit)="enviar()">
+        @if (error) {
+          <div class="error-msg">{{ error }}</div>
+        }
+        <div class="foto-section">
+          <label class="label-section">FOTO (OPCIONAL)</label>
+          <div class="foto-area" [class.has-foto]="fotoDisplayUrl()">
+            @if (fotoDisplayUrl()) {
+              <img [src]="fotoDisplayUrl()" alt="Foto empleado" class="foto-preview" />
+              <button type="button" class="btn-quitar-foto" (click)="quitarFoto()">Quitar</button>
+              <input type="file" #fotoInput accept="image/jpeg,image/png,image/jpg" (change)="onFotoChange($event)" hidden />
+              <button type="button" class="btn-cambiar-foto" (click)="fotoInput.click()">Cambiar imagen</button>
+            } @else {
+              <div class="foto-placeholder"><span class="placeholder-icon">&#128100;</span></div>
+              <input type="file" #fotoInput accept="image/jpeg,image/png,image/jpg" (change)="onFotoChange($event)" hidden />
+              <button type="button" class="btn-seleccionar" (click)="fotoInput.click()">
+                <span class="camera-icon">&#128247;</span> Seleccionar imagen
+              </button>
+            }
+          </div>
+        </div>
+        <div class="field full-width read-only-field">
+          <label>USERNAME</label>
+          <div class="username-preview">{{ username }}</div>
+        </div>
+        <div class="field full-width read-only-field">
+          <label>ROL</label>
+          <div class="username-preview">{{ nombreRol }}</div>
+        </div>
+        <div class="form-grid">
+          <div class="field">
+            <label>NOMBRE</label>
+            <input type="text" [(ngModel)]="nombre" name="nombre" required />
+          </div>
+          <div class="field">
+            <label>APELLIDO</label>
+            <input type="text" [(ngModel)]="apellido" name="apellido" required />
+          </div>
+          <div class="field">
+            <label>EDAD</label>
+            <input type="number" [(ngModel)]="edad" name="edad" min="1" max="120" />
+          </div>
+          <div class="field">
+            <label>TELEFONO</label>
+            <input type="text" [(ngModel)]="telefono" name="telefono" />
+          </div>
+          <div class="field full-width">
+            <label>DOMICILIO</label>
+            <input type="text" [(ngModel)]="domicilio" name="domicilio" />
+          </div>
+        </div>
+        <div class="radio-section">
+          <label class="label-section">ESTADO</label>
+          <div class="radio-group">
+            <label class="radio-option">
+              <input type="radio" name="estado" [value]="true" [(ngModel)]="activo" />
+              <span>Activo</span>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="estado" [value]="false" [(ngModel)]="activo" />
+              <span>Inactivo</span>
+            </label>
+          </div>
+        </div>
+        <div class="form-actions">
+          <a routerLink="/admin/gestion-usuarios" class="btn-cancelar">Cancelar</a>
+          <button type="submit" class="btn-guardar" [disabled]="loading">
+            @if (loading) {
+              {{ loadingStep === 'foto' ? 'Subiendo imagen...' : 'Guardando...' }}
+            } @else {
+              Guardar Cambios
+            }
+          </button>
+        </div>
+      </form>
+    }
+  </div>
+</div>
