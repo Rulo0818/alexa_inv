@@ -18,8 +18,8 @@
 }
 
 .card-header {
-  background: #004b93; /* Azul oscuro del encabezado */
-  color: white;
+  background: white; /* blanco ahora */
+  color: #0081c2; /* texto azul claro */
   padding: 2rem 1rem;
   text-align: center;
 }

@@ -1,14 +1,26 @@
-/* Estilos globales - evita scroll en toda la página */
 html, body {
   height: 100%;
   margin: 0;
   overflow: hidden;
   font-family: 'Segoe UI', system-ui, sans-serif;
+  background-color: white;
 }
 
-/* El contenedor raíz debe ocupar toda la altura */
-app-root {
-  display: block;
-  height: 100%;
-  overflow: hidden;
+app-root { display: block; height: 100%; overflow: hidden; }
+
+header,
+.card-header,
+.panel-header,
+.header {
+  background-color: white !important;
+  color: #0081c2 !important;
 }
+
+.logo-img {
+  height: 1.4rem;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
+.logo-icon { display: none; }
+

@@ -58,8 +58,8 @@
      align-items: center;
      justify-content: space-between;
      padding: 0.7rem 1.5rem;
-     background: linear-gradient(90deg, #0db8d9 0%, #38bdf8 100%);
-     color: var(--white);
+     background: white;
+     color: #0081c2;
      box-shadow: 0 2px 8px rgba(13, 184, 217, 0.3);
    }
    
