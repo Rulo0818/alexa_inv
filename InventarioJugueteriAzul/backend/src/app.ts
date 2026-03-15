@@ -8,6 +8,7 @@ import categoriasRoutes from './routes/categorias.routes';
 import productosRoutes from './routes/productos.routes';
 import ventasRoutes from './routes/ventas.routes';
 import historialRoutes from './routes/historial.routes';
+import reportesRoutes from './routes/reportes.routes';
 
 dotenv.config();
 
@@ -29,6 +30,7 @@ app.use('/api/categorias', categoriasRoutes);
 app.use('/api/productos', productosRoutes);
 app.use('/api/ventas', ventasRoutes);
 app.use('/api/historial-acciones', historialRoutes);
+app.use('/api/reportes', reportesRoutes);
 
 // Ruta de prueba
 app.get('/', (req: Request, res: Response) => {

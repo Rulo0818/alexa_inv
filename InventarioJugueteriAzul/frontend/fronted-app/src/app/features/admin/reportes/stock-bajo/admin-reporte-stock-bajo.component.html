@@ -1,0 +1,55 @@
+<div class="page">
+  <div class="header">
+    <h1>Reporte: Stock bajo</h1>
+    <p class="sub">Productos activos con stock menor o igual al umbral.</p>
+  </div>
+
+  <div class="controls">
+    <label class="field">
+      <span>Umbral</span>
+      <input type="number" min="0" step="1" [(ngModel)]="umbralInput" />
+    </label>
+
+    <button type="button" class="btn" (click)="cargar()" [disabled]="loading()">Actualizar</button>
+  </div>
+
+  @if (mensaje()) {
+    <div class="msg" [class.ok]="mensaje()!.tipo === 'ok'" [class.err]="mensaje()!.tipo === 'error'">
+      {{ mensaje()!.text }}
+    </div>
+  }
+
+  @if (loading()) {
+    <div class="loading">Cargando…</div>
+  } @else {
+    @if (productos().length === 0) {
+      <div class="empty">No hay productos con stock bajo para ese umbral.</div>
+    } @else {
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Código</th>
+              <th>Producto</th>
+              <th>Categoría</th>
+              <th class="num">Stock</th>
+              <th class="num">Stock mínimo</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (p of productos(); track p.id) {
+              <tr>
+                <td class="mono">{{ p.codigo }}</td>
+                <td>{{ p.nombre }}</td>
+                <td>{{ p.emoji_categoria ? (p.emoji_categoria + ' ') : '' }}{{ p.nombre_categoria }}</td>
+                <td class="num danger">{{ p.stock }}</td>
+                <td class="num">{{ p.stock_minimo }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  }
+</div>
+

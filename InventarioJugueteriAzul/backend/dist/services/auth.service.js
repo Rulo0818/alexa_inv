@@ -38,7 +38,8 @@ class AuthService {
             apellido: usuario.apellido,
             id_rol: usuario.id_rol,
             nombre_rol: usuario.nombre_rol,
-            requiere_cambio_contrasena: usuario.requiere_cambio_contrasena
+            requiere_cambio_contrasena: usuario.requiere_cambio_contrasena,
+            foto_url: usuario.foto_url ?? null
         };
         // Generar token
         const token = (0, jwt_1.generarToken)(usuarioToken);

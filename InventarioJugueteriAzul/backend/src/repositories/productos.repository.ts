@@ -220,6 +220,19 @@ export class ProductosRepository {
       }))
     };
   }
+
+  // Reporte: productos con stock menor o igual a umbral
+  async listarStockBajoPorUmbral(umbral: number): Promise<ProductoConCategoria[]> {
+    const sql = `
+      SELECT p.*, c.nombre as nombre_categoria, c.emoji as emoji_categoria
+      FROM productos p
+      INNER JOIN categorias c ON p.id_categoria = c.id
+      WHERE p.activo = 1 AND p.stock > 0 AND p.stock <= ?
+      ORDER BY p.stock ASC, p.nombre ASC
+    `;
+
+    return await query(sql, [Math.max(0, Math.floor(Number(umbral) || 0))]);
+  }
 }
 
 export default new ProductosRepository();

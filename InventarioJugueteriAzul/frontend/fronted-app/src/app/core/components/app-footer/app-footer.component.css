@@ -1,0 +1,19 @@
+.app-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: #1a365d;
+  color: #e2e8f0;
+  font-size: 0.875rem;
+  flex-shrink: 0;
+}
+
+.app-footer__name {
+  font-weight: 600;
+}
+
+.app-footer__year {
+  opacity: 0.9;
+}

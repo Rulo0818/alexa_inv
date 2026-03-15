@@ -127,15 +127,29 @@ class VentasRepository {
        GROUP BY p.id, p.nombre, p.codigo
        ORDER BY cantidad_vendida DESC
        LIMIT 5`, params);
-        // Ventas por empleado
-        const ventasPorEmpleado = await (0, database_1.query)(`SELECT u.nombre, u.apellido,
-              COUNT(v.id) as cantidad_ventas,
-              SUM(v.total) as total_vendido
-       FROM ventas v
-       INNER JOIN usuarios u ON v.id_empleado = u.id
-       ${whereClause}
-       GROUP BY u.id, u.nombre, u.apellido
-       ORDER BY total_vendido DESC`, params);
+        // Ventas por empleado - incluye TODOS los empleados/jefes activos (incluso con 0 ventas)
+        const ventasPorEmpleadoSql = filtros.fecha_inicio && filtros.fecha_fin
+            ? `SELECT u.nombre, u.apellido,
+                COUNT(v.id) as cantidad_ventas,
+                COALESCE(SUM(v.total), 0) as total_vendido
+         FROM usuarios u
+         INNER JOIN roles r ON u.id_rol = r.id
+         LEFT JOIN ventas v ON v.id_empleado = u.id 
+           AND v.cancelada = 0 
+           AND v.fecha >= ? 
+           AND v.fecha <= ?
+         WHERE u.activo = 1
+         GROUP BY u.id, u.nombre, u.apellido
+         ORDER BY total_vendido DESC, u.nombre, u.apellido`
+            : `SELECT u.nombre, u.apellido,
+                COUNT(v.id) as cantidad_ventas,
+                COALESCE(SUM(v.total), 0) as total_vendido
+         FROM ventas v
+         INNER JOIN usuarios u ON v.id_empleado = u.id
+         ${whereClause}
+         GROUP BY u.id, u.nombre, u.apellido
+         ORDER BY total_vendido DESC`;
+        const ventasPorEmpleado = await (0, database_1.query)(ventasPorEmpleadoSql, params);
         return {
             total_ventas: totalVentas,
             ventas_realizadas: totales.ventas_realizadas,

@@ -17,6 +17,7 @@ import { AdminEditarEmpleadoComponent } from './features/admin/gestion-usuarios/
 import { AdminNuevaVentaComponent } from './features/admin/nueva-venta/admin-nueva-venta.component';
 import { EmpleadoComponent } from './features/empleado/empleado.component';
 import { RecuperarComponent } from './features/recuperar/recuperar.component';
+import { AdminReporteStockBajoComponent } from './features/admin/reportes/stock-bajo/admin-reporte-stock-bajo.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -45,6 +46,7 @@ export const routes: Routes = [
       { path: 'gestion-usuarios', component: AdminGestionUsuariosComponent },
       { path: 'gestion-usuarios/creacion-empleado', component: AdminCreacionEmpleadoComponent },
       { path: 'gestion-usuarios/editar-usuario/:id', component: AdminEditarEmpleadoComponent },
+      { path: 'reportes/stock-bajo', component: AdminReporteStockBajoComponent },
     ],
   },
   { path: 'empleado', component: EmpleadoComponent, canActivate: [authGuard, rolGuard], data: { rol: 'empleado' } },

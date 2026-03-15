@@ -13,6 +13,7 @@ const categorias_routes_1 = __importDefault(require("./routes/categorias.routes"
 const productos_routes_1 = __importDefault(require("./routes/productos.routes"));
 const ventas_routes_1 = __importDefault(require("./routes/ventas.routes"));
 const historial_routes_1 = __importDefault(require("./routes/historial.routes"));
+const reportes_routes_1 = __importDefault(require("./routes/reportes.routes"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 3000;
@@ -29,6 +30,7 @@ app.use('/api/categorias', categorias_routes_1.default);
 app.use('/api/productos', productos_routes_1.default);
 app.use('/api/ventas', ventas_routes_1.default);
 app.use('/api/historial-acciones', historial_routes_1.default);
+app.use('/api/reportes', reportes_routes_1.default);
 // Ruta de prueba
 app.get('/', (req, res) => {
     res.json({
